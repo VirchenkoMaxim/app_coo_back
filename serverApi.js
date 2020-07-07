@@ -9,6 +9,8 @@ const connection = mysql.createConnection({
     password: 'ba5bbcf0',
 });
 
+
+
 router.get('/user', (req, res) => {
     const pageNum = parseInt(req.query.page - 1, 10) || 0;
     const count = parseInt(req.query.count, 10) || 1;
@@ -24,10 +26,7 @@ router.get('/user', (req, res) => {
 router.get('/stats', (req, res) => {
     const from = parseInt(req.query.from, 10) || 1;
     const to = parseInt(req.query.to, 10) || 1;
-    const userId = parseInt(req.query.userId, 10) || 1;
-
-    // const queryString = `SELECT * FROM articles.stats WHERE userId >= ${from} AND userId <= ${to}`
-    const queryString = `SELECT * FROM articles.stats WHERE userId = ${userId}`
+    const queryString = `SELECT * FROM stats WHERE userId >= ${from} AND userId <= ${to}`
     connection.query(queryString, (err, rows, fields) => {
         res.json(rows)
     })
